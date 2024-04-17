@@ -1,0 +1,61 @@
+version: '3.9'
+services:
+  bill-service:
+    build:
+      context: service
+      dockerfile: Dockerfile
+    container_name: bill-service
+    ports:
+      - "9099:9099"
+    depends_on:
+      - service-db
+      - jaeger
+    environment:
+      - SPRING_DATASOURCE_URL=jdbc:postgresql://db:5432/service
+      - SPRING_DATASOURCE_USERNAME=root
+      - SPRING_DATASOURCE_PASSWORD=root
+      - TRACING_URL=http://jaeger:4318/v1/traces
+      - STATISTIC_SERVICE_URL=http://bill-client:9099
+  service-db:
+    image: postgres:16-alpine
+    container_name: db
+    ports:
+      - "6541:5432"
+    environment:
+      - POSTGRES_DB=service
+      - POSTGRES_USER=root
+      - POSTGRES_PASSWORD=root
+
+  bill-client:
+    build:
+      context: client
+      dockerfile: Dockerfile
+    container_name: bill-client
+    ports:
+      - "9098:9099"
+    depends_on:
+      - service-db
+      - jaeger
+    environment:
+      - SPRING_DATASOURCE_URL=jdbc:postgresql://client-db:5432/client
+      - SPRING_DATASOURCE_USERNAME=root
+      - SPRING_DATASOURCE_PASSWORD=root
+      - TRACING_URL=http://jaeger:4318/v1/traces
+
+  client-db:
+    image: postgres:16-alpine
+    container_name: client-db
+    ports:
+      - "6542:5432"
+    environment:
+      - POSTGRES_DB=client
+      - POSTGRES_USER=root
+      - POSTGRES_PASSWORD=root
+
+  jaeger:
+    image: jaegertracing/all-in-one:latest
+    ports:
+      - 4318:4318
+      - 16686:16686
+    environment:
+      - COLLECTOR_OTLP_ENABLED=true

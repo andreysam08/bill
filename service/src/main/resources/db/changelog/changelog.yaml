@@ -1,0 +1,25 @@
+databaseChangeLog:
+  - changeSet:
+      id: 1
+      author: andrey
+      changes:
+        - sqlFile:
+            path: db/sql/v.1_create_table_user.sql
+  - changeSet:
+      id: 2
+      author: andrey
+      changes:
+        - sqlFile:
+            path: db/sql/v.2_create_entities.sql
+  - changeSet:
+      id: 3
+      author: andrey
+      changes:
+        - sqlFile:
+            path: db/sql/v.3_create_attempt_transaction.sql
+  - changeSet:
+      id: 4
+      author: andrey
+      changes:
+        - sqlFile:
+            path: db/sql/v.4_test_data.sql
