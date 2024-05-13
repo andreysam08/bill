@@ -1,0 +1,26 @@
+client:
+  id: oidc-client
+  logout_redirect_uri: http://my-custom-ip2:9096/
+  redirect_uri: http://my-custom-ip2:9096/login/oauth2/code/oidc-client
+  secret: '{noop}secret'
+logging:
+  level:
+    org:
+      springframework:
+        security: trace
+        security.oauth2: trace
+        web: INFO
+    root: INFO
+server:
+  port: 9000
+spring:
+  datasource:
+    password: test
+    url: jdbc:postgresql://localhost:5432/auth_server
+    username: test
+  liquibase:
+    change-log: classpath:db/changelog/changelog.yaml
+  security:
+    oauth2:
+      authorizationserver:
+        issuer: http://auth-server:9000

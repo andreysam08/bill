@@ -1,0 +1,9 @@
+databaseChangeLog:
+  - changeSet:
+      id: 1
+      author: andrey
+      changes:
+        - sqlFile:
+            path: db/sql/v.1_create_entities.sql
+        - sqlFile:
+            path: db/sql/v.2_test_data.sql
