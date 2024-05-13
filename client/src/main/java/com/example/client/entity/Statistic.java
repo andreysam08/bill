@@ -14,6 +14,7 @@ import java.time.LocalDateTime;
 @Setter
 @Entity
 @NoArgsConstructor
+@Table(name = "statistic", schema = "client")
 public class Statistic extends BaseEntity{
     private LocalDateTime startTime;
     private LocalDateTime endTime;

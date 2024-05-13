@@ -5,6 +5,8 @@ import com.example.client.service.StatisticService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("statistics")
 @RequiredArgsConstructor
@@ -13,5 +15,10 @@ public class StatisticController {
     @PostMapping
     public void saveStatistics(@RequestBody StatisticDto statisticDto) {
         statisticService.saveStatistic(statisticDto);
+    }
+
+    @GetMapping("/data")
+    public List<StatisticDto> getData() {
+        return statisticService.getStatistics();
     }
 }

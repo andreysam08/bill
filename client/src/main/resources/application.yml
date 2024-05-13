@@ -1,0 +1,44 @@
+otel:
+  exporter:
+    otlp:
+      endpoint: http://localhost:4317
+      protocol: grpc
+  resource:
+    attributes:
+      service: client
+      service.name: client
+server:
+  port: 9096
+#  address: my-custom-ip2
+spring:
+  application:
+    name: bill-client
+  datasource:
+    password: test
+    url: jdbc:postgresql://localhost:5432/client
+    username: test
+  liquibase:
+    change-log: classpath:db/changelog/changelog.yaml
+  security:
+    oauth2:
+      client:
+        registration:
+          oidc-client:
+            provider: spring
+            client-id: oidc-client
+            client-secret: secret
+            authorization-grant-type: authorization_code
+            redirect-uri: "http://my-custom-ip2:9096/login/oauth2/code/{registrationId}"
+            scope: openid
+        provider:
+          spring:
+            issuer-uri: http://auth-server:9000
+logging:
+  level:
+    root: INFO
+    org.springframework.web: INFO
+    org.springframework.security: trace
+    org.springframework.security.oauth2: trace
+
+service:
+  host: http://localhost:9099

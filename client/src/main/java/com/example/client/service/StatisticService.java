@@ -6,6 +6,8 @@ import com.example.client.repository.StatisticRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 @RequiredArgsConstructor
 public class StatisticService {
@@ -13,5 +15,9 @@ public class StatisticService {
     private final StatisticMapper statisticMapper;
     public void saveStatistic(StatisticDto statisticDto) {
         statisticRepository.save(statisticMapper.map(statisticDto));
+    }
+
+    public List<StatisticDto> getStatistics() {
+        return statisticMapper.map(statisticRepository.findAll());
     }
 }
