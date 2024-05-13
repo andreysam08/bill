@@ -3,19 +3,16 @@ package ru.example.demo.service;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Isolation;
-import org.springframework.transaction.annotation.Transactional;
+import ru.example.demo.dto.AccountDto;
+import ru.example.demo.dto.AccountDtoRequest;
 import ru.example.demo.entity.Account;
 import ru.example.demo.entity.Bank;
 import ru.example.demo.entity.User;
+import ru.example.demo.mapper.AccountMapper;
 import ru.example.demo.repository.AccountRepository;
 import ru.example.demo.repository.BankRepository;
 import ru.example.demo.repository.UserRepository;
-import ru.example.demo.dto.AccountDto;
-import ru.example.demo.dto.AccountDtoRequest;
-import ru.example.demo.mapper.AccountMapper;
 
-import java.math.BigDecimal;
 import java.util.Optional;
 import java.util.UUID;
 
@@ -34,8 +31,8 @@ public class AccountService {
         return accountMapper.map(save);
     }
 
-    public Account getById(UUID accountId) {
-        Optional<Account> byId = accountRepository.findById(accountId);
+    public Account getById(UUID accountId, UUID userId) {
+        Optional<Account> byId = accountRepository.findByIdAndUserId(accountId, userId);
         return byId.orElseThrow();
     }
 }

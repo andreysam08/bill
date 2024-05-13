@@ -2,17 +2,17 @@ package ru.example.demo.service;
 
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Isolation;
 import org.springframework.transaction.annotation.Transactional;
-import ru.example.demo.dto.AccountDto;
 import ru.example.demo.dto.TransactionDto;
 import ru.example.demo.dto.TransactionDtoRequest;
 import ru.example.demo.entity.Account;
 import ru.example.demo.entity.AttemptTransaction;
 import ru.example.demo.entity.Transaction;
 import ru.example.demo.entity.enums.TransactionType;
-import ru.example.demo.repository.TransactionRepository;
 import ru.example.demo.mapper.TransactionMapper;
+import ru.example.demo.repository.TransactionRepository;
+
+import java.util.UUID;
 
 @Service
 @AllArgsConstructor
@@ -24,8 +24,8 @@ public class TransactionService {
 
     //@Transactional(isolation = Isolation.REPEATABLE_READ)
     @Transactional
-    public TransactionDto save(TransactionDtoRequest transactionDtoRequest) {
-        Account account = accountService.getById(transactionDtoRequest.accountId());
+    public TransactionDto save(TransactionDtoRequest transactionDtoRequest, UUID userId) {
+        Account account = accountService.getById(transactionDtoRequest.accountId(), userId);
         try {
             Thread.sleep(5000);
         } catch (InterruptedException e) {

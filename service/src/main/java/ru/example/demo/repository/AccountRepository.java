@@ -11,5 +11,5 @@ import java.util.UUID;
 public interface AccountRepository extends JpaRepository<Account, UUID> {
 
     @Lock(LockModeType.PESSIMISTIC_WRITE)
-    Optional<Account> findById(UUID id);
+    Optional<Account> findByIdAndUserId(UUID id, UUID userId);
 }

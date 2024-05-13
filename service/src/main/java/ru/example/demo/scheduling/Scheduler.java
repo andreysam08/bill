@@ -8,7 +8,6 @@ import org.springframework.stereotype.Component;
 import org.springframework.web.client.RestTemplate;
 import ru.example.demo.entity.Transaction;
 import ru.example.demo.entity.enums.TransactionType;
-import ru.example.demo.feign.StatisticClient;
 import ru.example.demo.feign.StatisticDto;
 import ru.example.demo.repository.TransactionRepository;
 
