@@ -3,6 +3,7 @@ out/
 !**/src/main/**/out/
 !**/src/test/**/out/
 .idea
+**/target
 
 ### Eclipse ###
 .apt_generated
@@ -33,3 +34,6 @@ bin/
 !/service/target/
 /service/target/
 /client/target/
+/authorization-server/.mvn/wrapper/
+/authorization-server/authorization-server.iml
+/authorization-server/target/

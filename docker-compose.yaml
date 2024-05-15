@@ -10,12 +10,13 @@ services:
     depends_on:
       - service-db
       - jaeger
+      - bill-client
     environment:
       - SPRING_DATASOURCE_URL=jdbc:postgresql://db:5432/service
       - SPRING_DATASOURCE_USERNAME=root
       - SPRING_DATASOURCE_PASSWORD=root
       - TRACING_URL=http://jaeger:4318/v1/traces
-      - STATISTIC_SERVICE_URL=http://bill-client:9099
+      - STATISTIC_SERVICE_URL=http://bill-client:9096
   service-db:
     image: postgres:16-alpine
     container_name: db
@@ -32,15 +33,17 @@ services:
       dockerfile: Dockerfile
     container_name: bill-client
     ports:
-      - "9098:9099"
+      - "9096:9096"
     depends_on:
       - service-db
       - jaeger
+      - auth-server
     environment:
       - SPRING_DATASOURCE_URL=jdbc:postgresql://client-db:5432/client
       - SPRING_DATASOURCE_USERNAME=root
       - SPRING_DATASOURCE_PASSWORD=root
-      - TRACING_URL=http://jaeger:4318/v1/traces
+      - OTEL_EXPORTER_OTLP_ENDPOINT=http://collector:4317
+      - SERVICE_HOST=http://bill-service:9099
 
   client-db:
     image: postgres:16-alpine
@@ -54,8 +57,47 @@ services:
 
   jaeger:
     image: jaegertracing/all-in-one:latest
+    restart: always
     ports:
-      - 4318:4318
-      - 16686:16686
+      - "16686:16686"
+      - "4317"
     environment:
       - COLLECTOR_OTLP_ENABLED=true
+
+  collector:
+    container_name: collector
+    image: otel/opentelemetry-collector-contrib:0.91.0
+    command:
+      - --config=/etc/collector/otel-collector.yml
+    volumes:
+      - ./collector/otel-collector.yml:/etc/collector/otel-collector.yml
+    restart: always
+    ports:
+      - "4317:4317" # OTLP gRPC receiver
+      - "8889" # Prometheus exporter metrics
+    depends_on:
+      - jaeger
+
+  auth-server:
+    build:
+      context: authorization-server
+      dockerfile: Dockerfile
+    container_name: auth-server
+    ports:
+      - "9000:9000"
+    depends_on:
+      - auth-db
+    environment:
+      - SPRING_DATASOURCE_URL=jdbc:postgresql://auth-db:5432/auth_server
+      - SPRING_DATASOURCE_USERNAME=root
+      - SPRING_DATASOURCE_PASSWORD=root
+
+  auth-db:
+    image: postgres:16-alpine
+    container_name: auth-db
+    ports:
+      - "6543:5432"
+    environment:
+      - POSTGRES_DB=auth_server
+      - POSTGRES_USER=root
+      - POSTGRES_PASSWORD=root
