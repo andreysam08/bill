@@ -47,4 +47,9 @@ public class TransactionService {
         attemptTransactionService.findById(attemptTransaction.getId()).setTransaction(transaction);
         return transactionMapper.map(transaction, "success");
     }
+
+    public TransactionDto getLastTransaction(UUID userId) {
+        // TODO mock fix this
+        return new TransactionDto(UUID.randomUUID(), "ACTIVE");
+    }
 }

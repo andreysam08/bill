@@ -8,6 +8,8 @@ import ru.example.demo.entity.Account;
 import ru.example.demo.entity.AttemptTransaction;
 import ru.example.demo.entity.Transaction;
 
+import java.util.List;
+
 @Mapper(componentModel = "spring")
 public interface TransactionMapper {
     @Mapping(target = "id", ignore = true)
@@ -22,4 +24,6 @@ public interface TransactionMapper {
     @Mapping(target = "creationDate", ignore = true)
     @Mapping(target = "lastActionDate", ignore = true)
     AttemptTransaction mapAttemptTransaction(TransactionDtoRequest transactionDtoRequest, Account account);
+
+    List<TransactionDto> map(List<Transaction> transactions);
 }
