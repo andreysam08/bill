@@ -8,8 +8,6 @@ import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
-import org.springframework.security.crypto.factory.PasswordEncoderFactories;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -24,11 +22,9 @@ public class UserService implements UserDetailsService {
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         Optional<com.example.authorizationserver.entity.User> findUser = userRepository.findByUsername(username);
-        PasswordEncoder encoder = PasswordEncoderFactories.createDelegatingPasswordEncoder();
         return findUser.map(user -> User.builder()
                 .username(user.getUsername())
                 .password(user.getPassword())
-                .passwordEncoder(encoder::encode)
                 .roles(user.getRole())
                 .build()).orElseThrow();
     }
