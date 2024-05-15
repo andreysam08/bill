@@ -18,6 +18,6 @@ CREATE TABLE IF NOT EXISTS client.user
     creation_date    TIMESTAMP    NOT NULL,
     last_action_date TIMESTAMP    NOT NULL,
     username            VARCHAR(100) NOT NULL,
-    password         VARCHAR(128) NOT NULL DEFAULT '{noop}test',
+    password         VARCHAR(128) NOT NULL DEFAULT '{noop}test123',
     CONSTRAINT pk_user_id PRIMARY KEY (id)
 );

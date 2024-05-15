@@ -42,3 +42,5 @@ logging:
 
 service:
   host: http://localhost:9099
+allowed:
+  domains: test1,test2,test3,test4

@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("statistics")
+@RequestMapping("/statistics")
 @RequiredArgsConstructor
 public class StatisticController {
     private final StatisticService statisticService;
@@ -20,5 +20,10 @@ public class StatisticController {
     @GetMapping("/data")
     public List<StatisticDto> getData() {
         return statisticService.getStatistics();
+    }
+
+    @GetMapping("/ignore-traces")
+    public String getDataTest() {
+        return "Test";
     }
 }
