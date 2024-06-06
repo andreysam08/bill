@@ -1,4 +1,4 @@
-package com.example.authorizationserver.security;
+package com.example.authorizationserver.config;
 
 import com.example.authorizationserver.repository.UserRepository;
 import com.nimbusds.jose.jwk.JWKSet;
@@ -37,6 +37,7 @@ import java.security.KeyPair;
 import java.security.KeyPairGenerator;
 import java.security.interfaces.RSAPrivateKey;
 import java.security.interfaces.RSAPublicKey;
+import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
@@ -45,13 +46,17 @@ import java.util.UUID;
 @EnableMethodSecurity
 public class SecurityConfig {
 
-    @Value("${client.id}")
+    @Value("${client.oidc-client.id}")
     private String CLIENT_ID;
-    @Value("${client.secret}")
+    @Value("${client.tech-client.id}")
+    private String TECH_CLIENT_ID;
+    @Value("${client.oidc-client.secret}")
     private String CLIENT_SECRET;
-    @Value("${client.redirect_uri}")
+    @Value("${client.tech-client.secret}")
+    private String TECH_CLIENT_SECRET;
+    @Value("${client.oidc-client.redirect_uri}")
     private String REDIRECT_URI;
-    @Value("${client.logout_redirect_uri}")
+    @Value("${client.oidc-client.logout_redirect_uri}")
     private String LOGOUT_REDIRECT_URI;
 
     @Bean
@@ -107,7 +112,15 @@ public class SecurityConfig {
                 .clientSettings(ClientSettings.builder().requireAuthorizationConsent(false).build())
                 .build();
 
-        return new InMemoryRegisteredClientRepository(oidcClient);
+        RegisteredClient techClient = RegisteredClient.withId(UUID.randomUUID().toString())
+                .clientId(TECH_CLIENT_ID)
+                .clientSecret(TECH_CLIENT_SECRET)
+                .authorizationGrantType(AuthorizationGrantType.CLIENT_CREDENTIALS)
+                .scope(OidcScopes.OPENID)
+                .scope(OidcScopes.PROFILE)
+                .clientSettings(ClientSettings.builder().requireAuthorizationConsent(false).build())
+                .build();
+        return new InMemoryRegisteredClientRepository(List.of(oidcClient, techClient));
     }
 
     @Bean
@@ -153,7 +166,10 @@ public class SecurityConfig {
                 context.getClaims().claims((claims) -> {
                     Optional<com.example.authorizationserver.entity.User> byUsername =
                             userRepository.findByUsername(context.getPrincipal().getName());
-                    byUsername.ifPresent(user -> claims.put("userId", user.getId()));
+                    byUsername.ifPresent(user -> {
+                        claims.put("roles", List.of(user.getRole()));
+                        claims.put("userId", user.getId());
+                    });
                 });
             }
         };

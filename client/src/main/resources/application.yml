@@ -23,6 +23,10 @@ spring:
     oauth2:
       client:
         registration:
+          tech-client:
+            authorization-grant-type: client_credentials
+            client-id: tech-client
+            client-secret: tech-secret
           oidc-client:
             provider: spring
             client-id: oidc-client
@@ -31,6 +35,8 @@ spring:
             redirect-uri: "http://my-custom-ip2:9096/login/oauth2/code/{registrationId}"
             scope: openid
         provider:
+          tech-client:
+            token-uri: http://auth-server:9000/oauth2/token
           spring:
             issuer-uri: http://auth-server:9000
 logging:
@@ -44,3 +50,5 @@ service:
   host: http://localhost:9099
 allowed:
   domains: test1,test2,test3,test4
+statistic-service:
+  url: http://localhost:9099

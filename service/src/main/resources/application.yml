@@ -18,7 +18,5 @@ spring:
       resourceserver:
         jwt:
           issuer-uri: http://auth-server:9000
-statistic-service:
-  url: http://localhost:9099
 tracing:
   url: http://localhost:4318/v1/traces

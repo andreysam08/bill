@@ -8,5 +8,5 @@ import java.util.List;
 import java.util.UUID;
 
 public interface TransactionRepository extends JpaRepository<Transaction, UUID> {
-    public List<Transaction> findByCreationDateBetween(LocalDateTime startTime, LocalDateTime endTime);
+    public List<Transaction> findByCreationDateAfter(LocalDateTime startTime);
 }
