@@ -1,12 +1,16 @@
 package com.example.client.controller;
 
-import com.example.client.dto.TransactionDto;
-import com.example.client.dto.TransactionDtoRequest;
 import com.example.client.service.TransactionService;
 import lombok.RequiredArgsConstructor;
+import org.example.dto.TransactionDto;
+import org.example.dto.TransactionDtoRequest;
 import org.springframework.security.oauth2.client.OAuth2AuthorizedClient;
 import org.springframework.security.oauth2.client.annotation.RegisteredOAuth2AuthorizedClient;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequiredArgsConstructor

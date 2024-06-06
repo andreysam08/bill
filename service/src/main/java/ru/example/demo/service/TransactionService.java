@@ -1,14 +1,14 @@
 package ru.example.demo.service;
 
 import lombok.AllArgsConstructor;
+import org.example.dto.TransactionDto;
+import org.example.dto.TransactionDtoRequest;
+import org.example.enums.TransactionType;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import ru.example.demo.dto.TransactionDto;
-import ru.example.demo.dto.TransactionDtoRequest;
 import ru.example.demo.entity.Account;
 import ru.example.demo.entity.AttemptTransaction;
 import ru.example.demo.entity.Transaction;
-import ru.example.demo.entity.enums.TransactionType;
 import ru.example.demo.mapper.TransactionMapper;
 import ru.example.demo.repository.TransactionRepository;
 

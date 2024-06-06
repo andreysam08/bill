@@ -1,6 +1,6 @@
-package ru.example.demo.dto;
+package org.example.dto;
 
-import ru.example.demo.entity.enums.TransactionType;
+import org.example.enums.TransactionType;
 
 import java.math.BigDecimal;
 import java.util.UUID;

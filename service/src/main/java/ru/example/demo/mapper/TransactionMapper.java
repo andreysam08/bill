@@ -1,9 +1,9 @@
 package ru.example.demo.mapper;
 
+import org.example.dto.TransactionDto;
+import org.example.dto.TransactionDtoRequest;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
-import ru.example.demo.dto.TransactionDto;
-import ru.example.demo.dto.TransactionDtoRequest;
 import ru.example.demo.entity.Account;
 import ru.example.demo.entity.AttemptTransaction;
 import ru.example.demo.entity.Transaction;

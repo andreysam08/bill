@@ -1,9 +1,9 @@
 package com.example.client.service;
 
-import com.example.client.dto.StatisticDto;
 import com.example.client.mapper.StatisticMapper;
 import com.example.client.repository.StatisticRepository;
 import lombok.RequiredArgsConstructor;
+import org.example.dto.StatisticDto;
 import org.springframework.stereotype.Service;
 
 import java.util.List;

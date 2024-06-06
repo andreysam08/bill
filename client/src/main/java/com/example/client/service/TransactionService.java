@@ -1,7 +1,7 @@
 package com.example.client.service;
 
-import com.example.client.dto.TransactionDto;
-import com.example.client.dto.TransactionDtoRequest;
+import org.example.dto.TransactionDto;
+import org.example.dto.TransactionDtoRequest;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;

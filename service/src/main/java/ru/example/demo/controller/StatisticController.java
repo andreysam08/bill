@@ -1,11 +1,11 @@
 package ru.example.demo.controller;
 
 import lombok.RequiredArgsConstructor;
+import org.example.dto.StatisticDto;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
-import ru.example.demo.dto.StatisticDto;
 import ru.example.demo.service.StatisticService;
 
 import java.time.LocalDateTime;

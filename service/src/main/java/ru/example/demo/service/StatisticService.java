@@ -1,10 +1,10 @@
 package ru.example.demo.service;
 
 import lombok.RequiredArgsConstructor;
+import org.example.dto.StatisticDto;
+import org.example.enums.TransactionType;
 import org.springframework.stereotype.Service;
-import ru.example.demo.dto.StatisticDto;
 import ru.example.demo.entity.Transaction;
-import ru.example.demo.entity.enums.TransactionType;
 import ru.example.demo.repository.TransactionRepository;
 
 import java.math.BigDecimal;

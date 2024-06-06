@@ -2,6 +2,7 @@ package ru.example.demo.controller;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
+import org.example.dto.StatisticDto;
 import org.instancio.Instancio;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,7 +12,6 @@ import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.MvcResult;
 import ru.example.demo.IntegrationTestBase;
-import ru.example.demo.dto.StatisticDto;
 import ru.example.demo.service.StatisticService;
 
 import static org.assertj.core.api.Assertions.assertThat;
