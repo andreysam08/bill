@@ -3,7 +3,7 @@ package ru.example.demo.database.service;
 import org.instancio.Instancio;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.test.context.jdbc.Sql;
+import ru.example.demo.IntegrationTestBase;
 import ru.example.demo.entity.Account;
 import ru.example.demo.entity.Bank;
 import ru.example.demo.entity.User;
