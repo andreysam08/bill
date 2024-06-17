@@ -1,0 +1,24 @@
+server:
+  port: 7777
+spring:
+  cloud:
+    gateway:
+      routes:
+        - id: resource
+          uri: http://localhost:9099
+          predicates:
+            - Path=/resource-server/**
+          filters:
+            - RewritePath=/resource-server/(?<segment>.*), /$\{segment}
+        - id: auth-server
+          uri: http://auth-server:9000
+          predicates:
+            - Path=/auth-server/**
+          filters:
+            - RewritePath=/auth-server/(?<segment>.*), /$\{segment}
+        - id: client
+          uri: http://my-custom-ip4:9096
+          predicates:
+            - Path=/client/**
+          filters:
+            - RewritePath=/client/(?<segment>.*), /$\{segment}

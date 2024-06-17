@@ -21,6 +21,7 @@
         <module>client</module>
         <module>authorization-server</module>
         <module>common</module>
+        <module>gateway-client</module>
     </modules>
 
     <properties>

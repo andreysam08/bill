@@ -36,7 +36,7 @@ spring:
             scope: openid
         provider:
           tech-client:
-            token-uri: http://auth-server:9000/oauth2/token
+            token-uri: http://localhost:7777/auth-server/oauth2/token
           spring:
             issuer-uri: http://auth-server:9000
 logging:
@@ -51,4 +51,4 @@ service:
 allowed:
   domains: test1,test2,test3,test4
 statistic-service:
-  url: http://localhost:9099
+  url: http://localhost:7777/resource-server
