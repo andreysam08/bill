@@ -11,12 +11,14 @@ services:
       - service-db
       - jaeger
       - bill-client
+      - openldap
     environment:
       - SPRING_DATASOURCE_URL=jdbc:postgresql://db:5432/service
       - SPRING_DATASOURCE_USERNAME=root
       - SPRING_DATASOURCE_PASSWORD=root
       - TRACING_URL=http://jaeger:4318/v1/traces
       - STATISTIC_SERVICE_URL=http://bill-client:9096
+      - SPRING_LDAP_URLS=ldap://openldap:389
   service-db:
     image: postgres:16-alpine
     container_name: db
@@ -101,3 +103,19 @@ services:
       - POSTGRES_DB=auth_server
       - POSTGRES_USER=root
       - POSTGRES_PASSWORD=root
+
+  openldap:
+    image: osixia/openldap:latest
+    container_name: openldap
+    hostname: openldap
+    ports:
+      - "389:389"
+      - "636:636"
+    environment:
+      - LDAP_ORGANISATION=testlocal
+      - LDAP_DOMAIN=testlocal.com
+      - LDAP_ADMIN_USERNAME=admin
+      - LDAP_ADMIN_PASSWORD=admin_test
+      - LDAP_READONLY_USER=true
+      - LDAP_READONLY_USER_USERNAME=test2
+      - LDAP_READONLY_USER_PASSWORD=test2

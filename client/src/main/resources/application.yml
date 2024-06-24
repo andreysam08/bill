@@ -32,7 +32,7 @@ spring:
             client-id: oidc-client
             client-secret: secret
             authorization-grant-type: authorization_code
-            redirect-uri: "http://my-custom-ip2:9096/login/oauth2/code/{registrationId}"
+            redirect-uri: "http://client.127.0.0.1.nip.io:9096/login/oauth2/code/{registrationId}"
             scope: openid
         provider:
           tech-client:

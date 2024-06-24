@@ -17,7 +17,7 @@ spring:
           filters:
             - RewritePath=/auth-server/(?<segment>.*), /$\{segment}
         - id: client
-          uri: http://my-custom-ip4:9096
+          uri: http://client.127.0.0.1.nip.io:9096
           predicates:
             - Path=/client/**
           filters:

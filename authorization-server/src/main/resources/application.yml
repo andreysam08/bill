@@ -1,8 +1,8 @@
 client:
   oidc-client:
     id: oidc-client
-    logout_redirect_uri: http://my-custom-ip2:9096/
-    redirect_uri: http://my-custom-ip2:9096/login/oauth2/code/oidc-client
+    logout_redirect_uri: http://client.127.0.0.1.nip.io:9096/
+    redirect_uri: http://client.127.0.0.1.nip.io:9096/login/oauth2/code/oidc-client
     secret: '{noop}secret'
   tech-client:
     id: tech-client
